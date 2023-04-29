@@ -1,12 +1,15 @@
 package com.example.documentindex.controller;
 
-import com.example.documentindex.dto.request.*;
-import com.example.documentindex.dto.response.*;
-import com.example.documentindex.service.*;
-import org.springframework.beans.factory.annotation.*;
+
+import com.example.documentindex.dto.request.DocumentRequest;
+import com.example.documentindex.dto.request.SearchRequest;
+import com.example.documentindex.dto.response.DocumentResponse;
+import com.example.documentindex.service.DocumentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("v1/api/documents")

@@ -1,10 +1,12 @@
 package com.example.documentindex.documents.factory;
 
-import com.example.documentindex.dto.request.*;
+import com.example.documentindex.dto.request.DocumentRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+
 
 @Service
 public class DocumentFactoryManagerImpl implements DocumentFactoryManager {
