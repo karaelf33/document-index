@@ -41,9 +41,9 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<SearchResponse> createFiles(List<DocumentRequest> documentRequests) {
+    public List<SearchResponse> saveDocumentWithContent(List<DocumentRequest> documentRequests) {
         for (DocumentRequest documentRequest : documentRequests) {
-            documentFactoryManager.createDocument(documentRequest);
+            documentFactoryManager.saveDocumentWithContent(documentRequest);
         }
         return null;
     }

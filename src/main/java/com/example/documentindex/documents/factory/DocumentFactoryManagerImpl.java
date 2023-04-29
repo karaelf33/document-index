@@ -15,14 +15,13 @@ public class DocumentFactoryManagerImpl implements DocumentFactoryManager {
     }
 
     @Override
-    public void createDocument(DocumentRequest documentRequest) {
+    public void saveDocumentWithContent(DocumentRequest documentRequest) {
         String fileExtension = getFileExtension(documentRequest.getFileName());
         DocumentFactory factory = FACTORIES.get(fileExtension);
         if (factory == null) {
             throw new IllegalArgumentException("Unsupported file extension: " + fileExtension);
         }
-        factory.createDocument(documentRequest);
-        factory.writeContent(documentRequest);
+        factory.saveDocumentWithContent(documentRequest);
     }
 
     @Override

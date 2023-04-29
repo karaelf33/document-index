@@ -1,11 +1,13 @@
 package com.example.documentindex.documents.factory;
 
 
-import com.example.documentindex.dto.request.*;
 
-import java.io.*;
-import java.nio.file.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
+import com.example.documentindex.dto.request.DocumentRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,19 +19,7 @@ public class TextDocumentFactory implements DocumentFactory {
     Logger logger = LoggerFactory.getLogger(TextDocumentFactory.class);
 
     @Override
-    public void createDocument(DocumentRequest documentRequest) {
-        try {
-            Files.createDirectories(Paths.get(RESOURCES_PATH));
-            Files.createFile(Paths.get(RESOURCES_PATH + "/" + documentRequest.getFileName()));
-            logger.info("Document created successfully.");
-        } catch (IOException e) {
-            logger.error("Error creating file: " + e.getMessage());
-        }
-
-    }
-
-    @Override
-    public void writeContent(DocumentRequest documentRequest) {
+    public void saveDocumentWithContent(DocumentRequest documentRequest) {
         try {
             // create the directory if it doesn't exist
             Files.createDirectories(Paths.get(RESOURCES_PATH));

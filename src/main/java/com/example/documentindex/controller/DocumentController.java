@@ -26,8 +26,8 @@ public class DocumentController {
     }
 
     @PostMapping("")
-    public List<SearchResponse> createFile(@RequestBody List<DocumentRequest> documentRequests){
-        return documentService.createFiles(documentRequests);
+    public List<SearchResponse> saveDocumentWithContent(@RequestBody List<DocumentRequest> documentRequests){
+        return documentService.saveDocumentWithContent(documentRequests);
     }
 
 
