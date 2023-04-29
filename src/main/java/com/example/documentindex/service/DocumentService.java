@@ -6,7 +6,7 @@ import com.example.documentindex.dto.response.*;
 import java.util.*;
 
 public interface DocumentService {
-    List<SearchResponse> searchStringInDocument(List<SearchRequest> searchRequestList);
+    List<DocumentResponse> searchStringInDocument(List<SearchRequest> searchRequestList);
 
-    List<SearchResponse> saveDocumentWithContent(List<DocumentRequest> documentRequests);
+    List<DocumentResponse> saveDocumentWithContent(List<DocumentRequest> documentRequests);
 }

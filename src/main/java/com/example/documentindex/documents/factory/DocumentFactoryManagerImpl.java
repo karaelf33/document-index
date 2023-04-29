@@ -1,6 +1,7 @@
 package com.example.documentindex.documents.factory;
 
 import com.example.documentindex.dto.request.*;
+import com.example.documentindex.dto.response.DocumentResponse;
 import org.springframework.stereotype.*;
 
 import java.util.*;
@@ -15,13 +16,13 @@ public class DocumentFactoryManagerImpl implements DocumentFactoryManager {
     }
 
     @Override
-    public void saveDocumentWithContent(DocumentRequest documentRequest) {
+    public DocumentResponse saveDocumentWithContent(DocumentRequest documentRequest) {
         String fileExtension = getFileExtension(documentRequest.getFileName());
         DocumentFactory factory = FACTORIES.get(fileExtension);
         if (factory == null) {
             throw new IllegalArgumentException("Unsupported file extension: " + fileExtension);
         }
-        factory.saveDocumentWithContent(documentRequest);
+        return factory.saveDocumentWithContent(documentRequest);
     }
 
     @Override

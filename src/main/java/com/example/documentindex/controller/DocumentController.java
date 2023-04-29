@@ -20,13 +20,13 @@ public class DocumentController {
     }
 
     @GetMapping("")
-    public List<SearchResponse> searchDocument(@RequestBody List<SearchRequest> searchRequestList){
+    public List<DocumentResponse> searchDocument(@RequestBody List<SearchRequest> searchRequestList){
 
         return documentService.searchStringInDocument(searchRequestList);
     }
 
     @PostMapping("")
-    public List<SearchResponse> saveDocumentWithContent(@RequestBody List<DocumentRequest> documentRequests){
+    public List<DocumentResponse> saveDocumentWithContent(@RequestBody List<DocumentRequest> documentRequests){
         return documentService.saveDocumentWithContent(documentRequests);
     }
 

@@ -2,7 +2,7 @@ package com.example.documentindex.service.impl;
 
 import com.example.documentindex.documents.factory.*;
 import com.example.documentindex.dto.request.*;
-import com.example.documentindex.dto.response.SearchResponse;
+import com.example.documentindex.dto.response.DocumentResponse;
 import com.example.documentindex.service.DocumentService;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<SearchResponse> searchStringInDocument(List<SearchRequest> searchRequestList) {
+    public List<DocumentResponse> searchStringInDocument(List<SearchRequest> searchRequestList) {
 
         File file = new File("../resources/documents/TxtFileExample1.txt");
         try {
@@ -41,11 +41,13 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<SearchResponse> saveDocumentWithContent(List<DocumentRequest> documentRequests) {
+    public List<DocumentResponse> saveDocumentWithContent(List<DocumentRequest> documentRequests) {
+        List<DocumentResponse> responseList = new ArrayList<>();
         for (DocumentRequest documentRequest : documentRequests) {
-            documentFactoryManager.saveDocumentWithContent(documentRequest);
+            responseList.add(
+                    documentFactoryManager.saveDocumentWithContent(documentRequest));
         }
-        return null;
+        return responseList;
     }
 
 

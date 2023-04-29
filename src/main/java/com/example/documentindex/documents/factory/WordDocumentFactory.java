@@ -1,6 +1,7 @@
 package com.example.documentindex.documents.factory;
 
 import com.example.documentindex.dto.request.DocumentRequest;
+import com.example.documentindex.dto.response.DocumentResponse;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
@@ -12,36 +13,50 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static com.example.documentindex.Constants.RESOURCES_PATH;
+import static com.example.documentindex.util.Constants.*;
+import static com.example.documentindex.util.Constants.FILE_CREATED;
+import static com.example.documentindex.util.ErrorMessage.CONTENT_ADDITION_ERROR;
+import static com.example.documentindex.util.ErrorMessage.FILE_ERROR_CREATION;
 
 public class WordDocumentFactory implements DocumentFactory {
 
     Logger logger = LoggerFactory.getLogger(WordDocumentFactory.class);
+
     @Override
-    public void saveDocumentWithContent(DocumentRequest documentRequest) {
+    public DocumentResponse saveDocumentWithContent(DocumentRequest documentRequest) {
+        String fileMessage;
+        String contentMessage;
+        String fileName = documentRequest.getFileName();
         try {
             // create the directory if it doesn't exist
             Files.createDirectories(Paths.get(RESOURCES_PATH));
 
             // create or append content to the file
-            Path filePath = Paths.get(RESOURCES_PATH + "/" + documentRequest.getFileName());
+            Path path = Paths.get(RESOURCES_PATH + FILE_SEPARATOR + fileName);
+
             XWPFDocument doc;
-            if (Files.exists(filePath)) {
-                doc = new XWPFDocument(new FileInputStream(filePath.toFile()));
+            if (Files.exists(path)) {
+                doc = new XWPFDocument(new FileInputStream(path.toFile()));
+                fileMessage = FILE_EXIST;
             } else {
                 doc = new XWPFDocument();
+                fileMessage = fileName + FILE_CREATED;
             }
             XWPFParagraph paragraph = doc.createParagraph();
             XWPFRun run = paragraph.createRun();
             run.setText(documentRequest.getContent());
-            FileOutputStream out = new FileOutputStream(filePath.toFile());
+            FileOutputStream out = new FileOutputStream(path.toFile());
             doc.write(out);
             out.close();
             doc.close();
 
-            logger.info("Content added successfully for {}", documentRequest.getFileName());
+            contentMessage = CONTENT_ADDED;
+            logger.info(fileMessage, contentMessage);
         } catch (IOException e) {
-            logger.error("Error creating or writing to file: {}", e.getMessage());
+            fileMessage = FILE_ERROR_CREATION + fileName;
+            contentMessage = CONTENT_ADDITION_ERROR;
+            logger.error(fileMessage, contentMessage, e.getMessage());
         }
+        return new DocumentResponse(fileMessage, contentMessage);
     }
 }
