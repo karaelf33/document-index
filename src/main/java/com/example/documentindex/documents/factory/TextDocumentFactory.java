@@ -24,7 +24,7 @@ public class TextDocumentFactory implements DocumentFactory {
     public DocumentResponse saveDocumentWithContent(DocumentRequest documentRequest) {
         String fileMessage;
         String contentMessage;
-        String fileName = documentRequest.getFileName();
+        String fileName = documentRequest.fileName();
 
         try {
             // create the directory if it doesn't exist
@@ -35,7 +35,7 @@ public class TextDocumentFactory implements DocumentFactory {
             fileMessage = Files.exists(path) ? FILE_EXIST : fileName + FILE_CREATED;
 
             Files.write(path,
-                    documentRequest.getContent().getBytes(),
+                    documentRequest.content().getBytes(),
                     StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
             contentMessage = CONTENT_ADDED;

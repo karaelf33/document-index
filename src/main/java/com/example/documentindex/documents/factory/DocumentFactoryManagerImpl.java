@@ -17,7 +17,7 @@ public class DocumentFactoryManagerImpl implements DocumentFactoryManager {
 
     @Override
     public DocumentResponse saveDocumentWithContent(DocumentRequest documentRequest) {
-        String fileExtension = getFileExtension(documentRequest.getFileName());
+        String fileExtension = getFileExtension(documentRequest.fileName());
         DocumentFactory factory = FACTORIES.get(fileExtension);
         if (factory == null) {
             throw new IllegalArgumentException("Unsupported file extension: " + fileExtension);

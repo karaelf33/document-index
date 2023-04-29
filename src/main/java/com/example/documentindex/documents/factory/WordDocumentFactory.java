@@ -26,7 +26,7 @@ public class WordDocumentFactory implements DocumentFactory {
     public DocumentResponse saveDocumentWithContent(DocumentRequest documentRequest) {
         String fileMessage;
         String contentMessage;
-        String fileName = documentRequest.getFileName();
+        String fileName = documentRequest.fileName();
         try {
             // create the directory if it doesn't exist
             Files.createDirectories(Paths.get(RESOURCES_PATH));
@@ -35,8 +35,9 @@ public class WordDocumentFactory implements DocumentFactory {
             Path path = Paths.get(RESOURCES_PATH + FILE_SEPARATOR + fileName);
 
             XWPFDocument doc;
+            File file = path.toFile();
             if (Files.exists(path)) {
-                doc = new XWPFDocument(new FileInputStream(path.toFile()));
+                doc = new XWPFDocument(new FileInputStream(file));
                 fileMessage = FILE_EXIST;
             } else {
                 doc = new XWPFDocument();
@@ -44,8 +45,8 @@ public class WordDocumentFactory implements DocumentFactory {
             }
             XWPFParagraph paragraph = doc.createParagraph();
             XWPFRun run = paragraph.createRun();
-            run.setText(documentRequest.getContent());
-            FileOutputStream out = new FileOutputStream(path.toFile());
+            run.setText(documentRequest.content());
+            FileOutputStream out = new FileOutputStream(file);
             doc.write(out);
             out.close();
             doc.close();
