@@ -9,11 +9,7 @@ import com.example.documentindex.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 
 @Service
@@ -28,11 +24,37 @@ public class DocumentServiceImpl implements DocumentService {
 
     @Override
     public List<SearchResponse> searchQueryInDocuments(List<SearchRequest> searchRequestList) {
-        for (SearchRequest s:searchRequestList){
-            documentFactoryManager.searchQueryInDocument(s);
+        for (SearchRequest s : searchRequestList) {
+            String content = documentFactoryManager.documentContent(s);
+            System.out.println(getQueryScoreInContent(s.query(), content));;
         }
 
         return null;
+    }
+
+
+    public double getQueryScoreInContent(String query, String content) {
+        String[] queryWords = query.trim().split("\\s+"); // split the string by spaces and double spaces
+        String[] contentWords = content.trim().split("\\s+"); // split the string by spaces and double spaces
+
+        int queryPointer;
+        int maxMatchWords = 0;
+        int matches;
+        int contentPointer = 0;
+
+        while (contentPointer < contentWords.length - queryWords.length + 1) {
+            matches = 0;
+            queryPointer = 0;
+
+            while (queryPointer < queryWords.length &&
+                    Objects.equals(contentWords[contentPointer + queryPointer], queryWords[queryPointer])) {
+                matches++;
+                queryPointer++;
+            }
+            maxMatchWords = Math.max(matches, maxMatchWords);
+            contentPointer++;
+        }
+        return (double) maxMatchWords / queryWords.length * 100;
     }
 
     @Override
