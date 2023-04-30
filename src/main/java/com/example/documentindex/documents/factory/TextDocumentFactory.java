@@ -1,6 +1,13 @@
 package com.example.documentindex.documents.factory;
 
 
+import com.example.documentindex.dto.request.DocumentRequest;
+import com.example.documentindex.dto.response.DocumentResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.FileCopyUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -9,20 +16,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-import com.example.documentindex.dto.request.DocumentRequest;
-import com.example.documentindex.dto.request.SearchRequest;
-import com.example.documentindex.dto.response.DocumentResponse;
-import com.example.documentindex.dto.response.SearchResponse;
-import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.FileCopyUtils;
-
 import static com.example.documentindex.util.Constants.*;
-import static com.example.documentindex.util.ErrorMessage.CONTENT_ADDITION_ERROR;
-import static com.example.documentindex.util.ErrorMessage.FILE_ERROR_CREATION;
+import static com.example.documentindex.util.ErrorMessage.*;
 
 public class TextDocumentFactory implements DocumentFactory {
 
@@ -58,12 +53,12 @@ public class TextDocumentFactory implements DocumentFactory {
 
     @Override
     public String readFile(String filename) {
-        ClassPathResource resource = new ClassPathResource("documents/" + filename);
+        ClassPathResource resource = new ClassPathResource(DOCUMENTS+ filename);
         try (InputStream inputStream = resource.getInputStream()) {
                 byte[] bytes = FileCopyUtils.copyToByteArray(inputStream);
                 return new String(bytes, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            System.err.println("Error reading file: " + filename + " - " + e.getMessage());
+            logger.error(ERROR_READING_FILE + filename + FILE_EXTENSION_SEPARATOR + e.getMessage());
             return null;
         }
     }

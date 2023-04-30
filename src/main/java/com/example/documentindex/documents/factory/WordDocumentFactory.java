@@ -9,17 +9,14 @@ import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.FileCopyUtils;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static com.example.documentindex.util.Constants.*;
-import static com.example.documentindex.util.ErrorMessage.CONTENT_ADDITION_ERROR;
-import static com.example.documentindex.util.ErrorMessage.FILE_ERROR_CREATION;
+import static com.example.documentindex.util.ErrorMessage.*;
 
 public class WordDocumentFactory implements DocumentFactory {
 
@@ -66,14 +63,14 @@ public class WordDocumentFactory implements DocumentFactory {
 
     @Override
     public String readFile(String filename) {
-        ClassPathResource resource = new ClassPathResource("documents/" + filename);
+        ClassPathResource resource = new ClassPathResource(DOCUMENTS + filename);
         try (InputStream inputStream = resource.getInputStream()) {
 
             XWPFDocument document = new XWPFDocument(inputStream);
             XWPFWordExtractor extractor = new XWPFWordExtractor(document);
             return extractor.getText();
         } catch (IOException e) {
-            logger.error("Error reading file: " + filename + " - " + e.getMessage());
+            logger.error(ERROR_READING_FILE + filename + FILE_EXTENSION_SEPARATOR + e.getMessage());
             return null;
         }
     }

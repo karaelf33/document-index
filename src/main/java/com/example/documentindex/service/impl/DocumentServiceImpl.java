@@ -7,10 +7,10 @@ import com.example.documentindex.dto.response.DocumentResponse;
 import com.example.documentindex.dto.response.SearchResponse;
 import com.example.documentindex.search.SearchService;
 import com.example.documentindex.service.DocumentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -27,18 +27,15 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public List<SearchResponse> searchQueryInDocuments(List<SearchRequest> searchRequestList) {
         List<SearchResponse> searchResponseList =new ArrayList<>();
-        for (SearchRequest s : searchRequestList) {
-            String content = documentFactoryManager.documentContent(s);
-            double queryScoreInContent = searchService.getQueryScoreInContent(s.query(), content);
-            SearchResponse searchResponse=new SearchResponse(s.fileName(),queryScoreInContent);
+        for (SearchRequest searchRequest : searchRequestList) {
+            String documentContent = documentFactoryManager.documentContent(searchRequest);
+            double queryScoreInContent = searchService.getQueryScoreInContent(searchRequest.query(), documentContent);
+            SearchResponse searchResponse=new SearchResponse(searchRequest.fileName(),queryScoreInContent);
             searchResponseList.add(searchResponse);
         }
 
         return searchResponseList;
     }
-
-
-
 
     @Override
     public List<DocumentResponse> saveDocumentWithContent(List<DocumentRequest> documentRequests) {

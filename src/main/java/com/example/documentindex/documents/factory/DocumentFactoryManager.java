@@ -6,6 +6,10 @@ import com.example.documentindex.dto.response.DocumentResponse;
 
 public interface DocumentFactoryManager {
     DocumentResponse saveDocumentWithContent(DocumentRequest documentRequest);
+
+    DocumentFactory getDocumentFactory(String documentRequest);
+
     String getFileExtension(String fileName);
+
     String documentContent(SearchRequest searchRequest);
 }
