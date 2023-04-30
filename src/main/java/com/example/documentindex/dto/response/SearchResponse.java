@@ -1,5 +1,5 @@
 package com.example.documentindex.dto.response;
 
 public record SearchResponse(String fileName,
-                             String matchRate) {
+                             double matchRate) {
 }

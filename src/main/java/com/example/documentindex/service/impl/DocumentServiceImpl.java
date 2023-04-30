@@ -5,6 +5,7 @@ import com.example.documentindex.dto.request.DocumentRequest;
 import com.example.documentindex.dto.request.SearchRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
 import com.example.documentindex.dto.response.SearchResponse;
+import com.example.documentindex.search.SearchService;
 import com.example.documentindex.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,47 +16,29 @@ import java.util.*;
 @Service
 public class DocumentServiceImpl implements DocumentService {
 
-    @Autowired
+    private final SearchService searchService;
     private final DocumentFactoryManager documentFactoryManager;
 
-    public DocumentServiceImpl(DocumentFactoryManager documentFactoryManager) {
+    public DocumentServiceImpl(SearchService searchService, DocumentFactoryManager documentFactoryManager) {
+        this.searchService = searchService;
         this.documentFactoryManager = documentFactoryManager;
     }
 
     @Override
     public List<SearchResponse> searchQueryInDocuments(List<SearchRequest> searchRequestList) {
+        List<SearchResponse> searchResponseList =new ArrayList<>();
         for (SearchRequest s : searchRequestList) {
             String content = documentFactoryManager.documentContent(s);
-            System.out.println(getQueryScoreInContent(s.query(), content));;
+            double queryScoreInContent = searchService.getQueryScoreInContent(s.query(), content);
+            SearchResponse searchResponse=new SearchResponse(s.fileName(),queryScoreInContent);
+            searchResponseList.add(searchResponse);
         }
 
-        return null;
+        return searchResponseList;
     }
 
 
-    public double getQueryScoreInContent(String query, String content) {
-        String[] queryWords = query.trim().split("\\s+"); // split the string by spaces and double spaces
-        String[] contentWords = content.trim().split("\\s+"); // split the string by spaces and double spaces
 
-        int queryPointer;
-        int maxMatchWords = 0;
-        int matches;
-        int contentPointer = 0;
-
-        while (contentPointer < contentWords.length - queryWords.length + 1) {
-            matches = 0;
-            queryPointer = 0;
-
-            while (queryPointer < queryWords.length &&
-                    Objects.equals(contentWords[contentPointer + queryPointer], queryWords[queryPointer])) {
-                matches++;
-                queryPointer++;
-            }
-            maxMatchWords = Math.max(matches, maxMatchWords);
-            contentPointer++;
-        }
-        return (double) maxMatchWords / queryWords.length * 100;
-    }
 
     @Override
     public List<DocumentResponse> saveDocumentWithContent(List<DocumentRequest> documentRequests) {
