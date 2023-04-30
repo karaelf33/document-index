@@ -2,15 +2,23 @@ package com.example.documentindex.documents.factory;
 
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import com.example.documentindex.dto.request.DocumentRequest;
+import com.example.documentindex.dto.request.SearchRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
+import com.example.documentindex.dto.response.SearchResponse;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.FileCopyUtils;
 
 import static com.example.documentindex.util.Constants.*;
 import static com.example.documentindex.util.ErrorMessage.CONTENT_ADDITION_ERROR;
@@ -46,5 +54,17 @@ public class TextDocumentFactory implements DocumentFactory {
             logger.error(fileMessage, contentMessage, e.getMessage());
         }
         return new DocumentResponse(fileMessage, contentMessage);
+    }
+
+    @Override
+    public String readFile(String filename) {
+        ClassPathResource resource = new ClassPathResource("documents/" + filename);
+        try (InputStream inputStream = resource.getInputStream()) {
+                byte[] bytes = FileCopyUtils.copyToByteArray(inputStream);
+                return new String(bytes, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + filename + " - " + e.getMessage());
+            return null;
+        }
     }
 }

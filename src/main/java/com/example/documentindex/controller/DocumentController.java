@@ -4,6 +4,7 @@ package com.example.documentindex.controller;
 import com.example.documentindex.dto.request.DocumentRequest;
 import com.example.documentindex.dto.request.SearchRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
+import com.example.documentindex.dto.response.SearchResponse;
 import com.example.documentindex.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,9 +24,9 @@ public class DocumentController {
     }
 
     @GetMapping("")
-    public List<DocumentResponse> searchDocument(@RequestBody List<SearchRequest> searchRequestList){
+    public List<SearchResponse> searchDocument(@RequestBody List<SearchRequest> searchRequestList){
 
-        return documentService.searchStringInDocument(searchRequestList);
+        return documentService.searchQueryInDocuments(searchRequestList);
     }
 
     @PostMapping("")

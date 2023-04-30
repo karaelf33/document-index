@@ -2,6 +2,5 @@ package com.example.documentindex.dto.request;
 
 
 public record SearchRequest(String query,
-                            String documentName,
-                            String fileDirectory) {
+                            String fileName) {
 }

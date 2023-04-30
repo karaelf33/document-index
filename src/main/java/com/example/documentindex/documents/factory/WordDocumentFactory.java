@@ -2,22 +2,22 @@ package com.example.documentindex.documents.factory;
 
 import com.example.documentindex.dto.request.DocumentRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.FileCopyUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static com.example.documentindex.util.Constants.*;
-import static com.example.documentindex.util.Constants.FILE_CREATED;
 import static com.example.documentindex.util.ErrorMessage.CONTENT_ADDITION_ERROR;
 import static com.example.documentindex.util.ErrorMessage.FILE_ERROR_CREATION;
 
@@ -63,4 +63,20 @@ public class WordDocumentFactory implements DocumentFactory {
         }
         return new DocumentResponse(fileMessage, contentMessage);
     }
+
+    @Override
+    public String readFile(String filename) {
+        ClassPathResource resource = new ClassPathResource("documents/" + filename);
+        try (InputStream inputStream = resource.getInputStream()) {
+
+            XWPFDocument document = new XWPFDocument(inputStream);
+            XWPFWordExtractor extractor = new XWPFWordExtractor(document);
+            return extractor.getText();
+        } catch (IOException e) {
+            logger.error("Error reading file: " + filename + " - " + e.getMessage());
+            return null;
+        }
+    }
+
+
 }
