@@ -53,6 +53,4 @@ public class DocumentFactoryManagerImpl implements DocumentFactoryManager {
         return fileName.substring(dotIndex + 1);
     }
 
-
-
 }

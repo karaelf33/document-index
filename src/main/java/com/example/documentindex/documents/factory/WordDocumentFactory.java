@@ -72,6 +72,7 @@ public class WordDocumentFactory implements DocumentFactory {
 
             XWPFDocument document = new XWPFDocument(inputStream);
             XWPFWordExtractor extractor = new XWPFWordExtractor(document);
+            logger.info(FILE_READ, "{}", filename);
             return extractor.getText();
         } catch (IOException e) {
             logger.error(ERROR_READING_FILE + filename + FILE_EXTENSION_SEPARATOR + e.getMessage());

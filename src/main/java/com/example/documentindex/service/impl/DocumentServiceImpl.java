@@ -27,19 +27,20 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public List<SearchResponse> searchQueryInDocuments(List<SearchRequest> searchRequestList) {
         List<SearchResponse> searchResponseList = new ArrayList<>();
+
         for (SearchRequest searchRequest : searchRequestList) {
             String documentContent = documentFactoryManager.documentContent(searchRequest);
-            double queryScoreInContent = searchService.getQueryScoreInContent(searchRequest.query(), documentContent);
+            double queryScoreInContent = searchService.getQueryMatchScoreInContent(searchRequest.query(), documentContent);
             SearchResponse searchResponse = new SearchResponse(searchRequest.fileName(), queryScoreInContent);
             searchResponseList.add(searchResponse);
         }
-
         return searchResponseList;
     }
 
     @Override
     public List<DocumentResponse> saveDocumentWithContent(List<DocumentRequest> documentRequests) {
         List<DocumentResponse> responseList = new ArrayList<>();
+
         for (DocumentRequest documentRequest : documentRequests) {
             DocumentResponse documentSaved = documentFactoryManager.saveDocumentWithContent(documentRequest);
             responseList.add(documentSaved);

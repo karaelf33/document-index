@@ -1,17 +1,22 @@
 package com.example.documentindex.search;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Objects;
 
+@Component
 public class SearchServiceImpl  implements SearchService{
 
     @Override
-    public double getQueryScoreInContent(String query, String content) {
-        String[] queryWords = query.trim().split("\\s+"); // split the string by spaces and double spaces
-        String[] contentWords = content.trim().split("\\s+"); // split the string by spaces and double spaces
+    public double getQueryMatchScoreInContent(String query, String content) {
+        String lowerCaseQuery = query.toLowerCase();
+        String lowerCaseContent = content.toLowerCase();
+        String[] queryWords = lowerCaseQuery.trim().split("\\s+"); // split the string by spaces and double spaces
+        String[] contentWords = lowerCaseContent.trim().split("\\s+"); // split the string by spaces and double spaces
 
         int queryPointer;
-        int maxMatchWords = 0;
         int matches;
+        int maxMatchWords = 0;
         int contentPointer = 0;
 
         while (contentPointer < contentWords.length - queryWords.length + 1) {

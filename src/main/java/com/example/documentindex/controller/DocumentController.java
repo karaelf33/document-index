@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("v1/api/documents")
+@RequestMapping("api/v1/documents")
 public class DocumentController {
 
     @Autowired
