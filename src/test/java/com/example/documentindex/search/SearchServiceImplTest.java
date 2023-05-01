@@ -9,7 +9,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.BDDAssertions.then;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -59,7 +58,7 @@ class SearchServiceImplTest {
         double differenceCanBe=0.99999999;
 
         //then
-        assertEquals(queryMatchScoreInContent,expectedMatchScore,differenceCanBe);
+        assertEquals(expectedMatchScore,queryMatchScoreInContent,differenceCanBe);
 
 
 
