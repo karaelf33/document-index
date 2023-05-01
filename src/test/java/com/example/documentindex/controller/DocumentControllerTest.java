@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,12 +46,12 @@ class DocumentControllerTest {
     void when_searchDocumentWith_searchRequestList_then_should_return_searchResponse() throws Exception {
 
         //given
-        List<SearchRequest> searchRequestList = Arrays.asList(
+        var searchRequestList = Arrays.asList(
                 new SearchRequest("query1", "text1.txt"),
                 new SearchRequest("query2", "text2.txt"),
                 new SearchRequest("query3", "text3.txt"));
 
-        List<SearchResponse> expectedSearchResponseList = Arrays.asList(
+        var expectedSearchResponseList = Arrays.asList(
                 new SearchResponse("text1.txt", 50.00),
                 new SearchResponse("text2.txt", 100.00),
                 new SearchResponse("text3.txt", 75.00));
@@ -75,13 +74,13 @@ class DocumentControllerTest {
     public void when_saveDocumentWithContent_then_should_return_documentResponseList() throws Exception {
 
         //given
-        List<DocumentRequest> documentRequests = Arrays.asList(
+        var documentRequests = Arrays.asList(
                 new DocumentRequest("query1", "content1"),
                 new DocumentRequest("query2", "content2"),
                 new DocumentRequest("query3", "content3")
         );
 
-        List<DocumentResponse> expectedDocumentResponseList = Arrays.asList(
+        var expectedDocumentResponseList = Arrays.asList(
                 new DocumentResponse("file message 1", "content message 3"),
                 new DocumentResponse("file message 2", "content message 2"),
                 new DocumentResponse("file message 3", "content message 1")
