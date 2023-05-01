@@ -23,7 +23,7 @@ class SearchServiceImplTest {
         searchService=new SearchServiceImpl();
     }
 
-    // WARNING: document can't be shorter then query
+    // WARNING: content can't be shorter then query
     public static Stream<Arguments> query_requests() {
         return Stream.of(
                 Arguments.of("abc adb","xxx abc adb yyy",100.00),
@@ -52,11 +52,11 @@ class SearchServiceImplTest {
 
     @ParameterizedTest
     @MethodSource("query_requests")
-    public void it_should_return_match_score(String query,String content,double expectedMatchScore){
+    public void it_should_return_correct_match_score(String query,String content,double expectedMatchScore){
 
         // when
         double queryMatchScoreInContent = searchService.getQueryMatchScoreInContent(query, content);
-        double differenceCanBe=0.9;
+        double differenceCanBe=0.99999999;
 
         //then
         assertEquals(queryMatchScoreInContent,expectedMatchScore,differenceCanBe);
