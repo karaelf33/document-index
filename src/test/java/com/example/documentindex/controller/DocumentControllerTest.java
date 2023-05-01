@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -46,15 +47,15 @@ class DocumentControllerTest {
     void when_searchDocumentWith_searchRequestList_then_should_return_searchResponse() throws Exception {
 
         //given
-        List<SearchRequest> searchRequestList = new ArrayList<>();
-        searchRequestList.add(new SearchRequest("query1", "text1.txt"));
-        searchRequestList.add(new SearchRequest("query2", "text2.txt"));
-        searchRequestList.add(new SearchRequest("query3", "text3.txt"));
+        List<SearchRequest> searchRequestList = Arrays.asList(
+                new SearchRequest("query1", "text1.txt"),
+                new SearchRequest("query2", "text2.txt"),
+                new SearchRequest("query3", "text3.txt"));
 
-        List<SearchResponse> expectedSearchResponseList = new ArrayList<>();
-        expectedSearchResponseList.add(new SearchResponse("text1.txt", 50.00));
-        expectedSearchResponseList.add(new SearchResponse("text2.txt", 100.00));
-        expectedSearchResponseList.add(new SearchResponse("text3.txt", 75.00));
+        List<SearchResponse> expectedSearchResponseList = Arrays.asList(
+                new SearchResponse("text1.txt", 50.00),
+                new SearchResponse("text2.txt", 100.00),
+                new SearchResponse("text3.txt", 75.00));
 
 
         // when
@@ -74,15 +75,17 @@ class DocumentControllerTest {
     public void when_saveDocumentWithContent_then_should_return_documentResponseList() throws Exception {
 
         //given
-        List<DocumentRequest> documentRequests = new ArrayList<>();
-        documentRequests.add(new DocumentRequest("query1", "content1"));
-        documentRequests.add(new DocumentRequest("query2", "content2"));
-        documentRequests.add(new DocumentRequest("query3", "content3"));
+        List<DocumentRequest> documentRequests = Arrays.asList(
+                new DocumentRequest("query1", "content1"),
+                new DocumentRequest("query2", "content2"),
+                new DocumentRequest("query3", "content3")
+        );
 
-        List<DocumentResponse> expectedDocumentResponseList = new ArrayList<>();
-        expectedDocumentResponseList.add(new DocumentResponse("file message 1", "content message 3"));
-        expectedDocumentResponseList.add(new DocumentResponse("file message 2", "content message 2"));
-        expectedDocumentResponseList.add(new DocumentResponse("file message 3", "content message 1"));
+        List<DocumentResponse> expectedDocumentResponseList = Arrays.asList(
+                new DocumentResponse("file message 1", "content message 3"),
+                new DocumentResponse("file message 2", "content message 2"),
+                new DocumentResponse("file message 3", "content message 1")
+        );
 
 
         // when
