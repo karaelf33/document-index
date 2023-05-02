@@ -22,7 +22,13 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DocumentServiceImplTest {
-
+    private static final String QUERY_1 = "query1";
+    private static final String QUERY_2 = "query2";
+    private static final String documentContent = "documentContent";
+    private static final String file1 = "file1";
+    private static final String file2 = "file2";
+    private static final String content1 = "content1";
+    private static final String content2 = "content2";
     @Mock
     SearchService searchService;
     @Mock
@@ -34,14 +40,15 @@ class DocumentServiceImplTest {
 
     @Test
     public void when_searchQueryInDocument_should_return_responseList() {
+
         List<SearchRequest> searchRequestList = Arrays.asList(
-                new SearchRequest("query1", "file1"),
-                new SearchRequest("query2", "file2"));
+                new SearchRequest(QUERY_1, file1),
+                new SearchRequest(QUERY_2, file2));
 
         List<SearchResponse> expectedSearchResponseList = Arrays.asList(
-                new SearchResponse("file1", 0.5),
-                new SearchResponse("file2", 0.3));
-        String documentContent = "documentContent";
+                new SearchResponse(file1, 0.5),
+                new SearchResponse(file2, 0.3));
+
 
         //when
         when(documentFactoryManager.documentContent(any(SearchRequest.class)))
@@ -58,8 +65,8 @@ class DocumentServiceImplTest {
     @Test
     public void when_saveDocumentWithContent_should_return_documentRequests() {
         List<DocumentRequest> documentRequests = Arrays.asList(
-                new DocumentRequest("file1", "content1"),
-                new DocumentRequest("file2", "content2")
+                new DocumentRequest(file1, content1),
+                new DocumentRequest(file2, content2)
         );
         DocumentResponse documentSaved1 = new DocumentResponse("file message 2", "content message 2");
         DocumentResponse documentSaved2 = new DocumentResponse("file message 1", "content message 1");
