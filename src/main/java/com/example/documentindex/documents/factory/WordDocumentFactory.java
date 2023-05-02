@@ -2,12 +2,13 @@ package com.example.documentindex.documents.factory;
 
 import com.example.documentindex.dto.request.DocumentRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.File;
@@ -24,7 +25,8 @@ import static com.example.documentindex.util.ErrorMessage.*;
 
 public class WordDocumentFactory implements DocumentFactory {
 
-    Logger logger = LoggerFactory.getLogger(WordDocumentFactory.class);
+    private static final Logger logger =
+            LogManager.getLogger(WordDocumentFactory.class);
 
     @Override
     public DocumentResponse saveDocumentWithContent(DocumentRequest documentRequest) {

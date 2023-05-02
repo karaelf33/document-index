@@ -3,8 +3,8 @@ package com.example.documentindex.documents.factory;
 
 import com.example.documentindex.dto.request.DocumentRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.FileCopyUtils;
 
@@ -16,12 +16,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
-import static com.example.documentindex.util.Constants.*;
+import static com.example.documentindex.util.Constants.CONTENT_ADDED;
+import static com.example.documentindex.util.Constants.FILE_CREATED;
+import static com.example.documentindex.util.Constants.RESOURCES_PATH;
+import static com.example.documentindex.util.Constants.FILE_EXTENSION_SEPARATOR;
+import static com.example.documentindex.util.Constants.FILE_SEPARATOR;
+import static com.example.documentindex.util.Constants.FILE_EXIST;
+import static com.example.documentindex.util.Constants.DOCUMENTS;
 import static com.example.documentindex.util.ErrorMessage.*;
 
 public class TextDocumentFactory implements DocumentFactory {
 
-    Logger logger = LoggerFactory.getLogger(TextDocumentFactory.class);
+    private static final Logger logger =
+            LogManager.getLogger(WordDocumentFactory.class);
 
     @Override
     public DocumentResponse saveDocumentWithContent(DocumentRequest documentRequest) {
