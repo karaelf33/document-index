@@ -27,6 +27,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class DocumentControllerTest {
 
+    private static final String QUERY_1 = "query1";
+    private static final String QUERY_2 = "query2";
+    private static final String QUERY_3= "query3";
+    private static final String documentContent = "documentContent";
+    private static final String file1 = "file1";
+    private static final String file2 = "file2";
+    private static final String content1 = "content1";
+    private static final String content2 = "content2";
+    private static final String content3 = "content3";
+
     @Mock
     DocumentService documentService;
 
@@ -47,9 +57,9 @@ class DocumentControllerTest {
 
         //given
         var searchRequestList = Arrays.asList(
-                new SearchRequest("query1", "text1.txt"),
-                new SearchRequest("query2", "text2.txt"),
-                new SearchRequest("query3", "text3.txt"));
+                new SearchRequest(QUERY_1, "text1.txt"),
+                new SearchRequest(QUERY_2, "text2.txt"),
+                new SearchRequest(QUERY_3, "text3.txt"));
 
         var expectedSearchResponseList = Arrays.asList(
                 new SearchResponse("text1.txt", 50.00),
@@ -75,9 +85,9 @@ class DocumentControllerTest {
 
         //given
         var documentRequests = Arrays.asList(
-                new DocumentRequest("query1", "content1"),
-                new DocumentRequest("query2", "content2"),
-                new DocumentRequest("query3", "content3")
+                new DocumentRequest(QUERY_1, content1),
+                new DocumentRequest(QUERY_2, content2),
+                new DocumentRequest(QUERY_3, content3)
         );
 
         var expectedDocumentResponseList = Arrays.asList(
