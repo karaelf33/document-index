@@ -41,17 +41,17 @@ class DocumentServiceImplTest {
     @Test
     public void when_searchQueryInDocument_should_return_responseList() {
 
-        List<SearchRequest> searchRequestList = Arrays.asList(
+        var searchRequestList = Arrays.asList(
                 new SearchRequest(QUERY_1, file1),
                 new SearchRequest(QUERY_2, file2));
 
-        List<SearchResponse> expectedSearchResponseList = Arrays.asList(
+        var expectedSearchResponseList = Arrays.asList(
                 new SearchResponse(file1, 0.5),
                 new SearchResponse(file2, 0.3));
 
 
         //when
-        when(documentFactoryManager.documentContent(any(SearchRequest.class)))
+        when(documentFactoryManager.getContentFromDocument(any(SearchRequest.class)))
                 .thenReturn(documentContent);
         when(searchService.getQueryMatchScoreInContent(anyString(), anyString()))
                 .thenReturn(0.5)
@@ -64,13 +64,13 @@ class DocumentServiceImplTest {
 
     @Test
     public void when_saveDocumentWithContent_should_return_documentRequests() {
-        List<DocumentRequest> documentRequests = Arrays.asList(
+        var documentRequests = Arrays.asList(
                 new DocumentRequest(file1, content1),
                 new DocumentRequest(file2, content2)
         );
-        DocumentResponse documentSaved1 = new DocumentResponse("file message 2", "content message 2");
-        DocumentResponse documentSaved2 = new DocumentResponse("file message 1", "content message 1");
-        List<DocumentResponse> expectedDocumentResponseList = Arrays.asList(
+        var documentSaved1 = new DocumentResponse("file message 2", "content message 2");
+        var documentSaved2 = new DocumentResponse("file message 1", "content message 1");
+        var expectedDocumentResponseList = Arrays.asList(
                 documentSaved2,
                 documentSaved1);
 
@@ -78,7 +78,7 @@ class DocumentServiceImplTest {
                 .thenReturn(documentSaved2)
                 .thenReturn(documentSaved1);
 
-        List<DocumentResponse> acutalDocumentResponseList = documentService.saveDocumentWithContent(documentRequests);
+        var acutalDocumentResponseList = documentService.saveDocumentWithContent(documentRequests);
 
         assertEquals(expectedDocumentResponseList, acutalDocumentResponseList);
 

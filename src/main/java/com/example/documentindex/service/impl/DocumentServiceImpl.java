@@ -29,7 +29,7 @@ public class DocumentServiceImpl implements DocumentService {
         List<SearchResponse> searchResponseList = new ArrayList<>();
 
         for (SearchRequest searchRequest : searchRequestList) {
-            String documentContent = documentFactoryManager.documentContent(searchRequest);
+            String documentContent = documentFactoryManager.getContentFromDocument(searchRequest);
             double queryScoreInContent = searchService.getQueryMatchScoreInContent(searchRequest.query(), documentContent);
             var searchResponse = new SearchResponse(searchRequest.fileName(), queryScoreInContent);
             searchResponseList.add(searchResponse);
