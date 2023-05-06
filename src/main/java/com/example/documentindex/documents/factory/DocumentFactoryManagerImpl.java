@@ -22,10 +22,13 @@ public class DocumentFactoryManagerImpl implements DocumentFactoryManager {
         FACTORIES.put(TXT, new TextDocumentFactory());
         FACTORIES.put(DOCX, new WordDocumentFactory());
     }
+
+
     @Override
-    public String documentContent(SearchRequest searchRequest) {
-        DocumentFactory factory = getDocumentFactory(searchRequest.fileName());
-        return factory.readFile(searchRequest.fileName());
+    public String getContentFromDocument(SearchRequest searchRequest) {
+        String fileName = searchRequest.fileName();
+        DocumentFactory factory = getDocumentFactory(fileName);
+        return factory.readFile(fileName);
     }
 
     @Override
@@ -35,8 +38,8 @@ public class DocumentFactoryManagerImpl implements DocumentFactoryManager {
     }
 
     @Override
-    public DocumentFactory getDocumentFactory(String documentRequest) {
-        String fileExtension = getFileExtension(documentRequest);
+    public DocumentFactory getDocumentFactory(String fileName) {
+        String fileExtension = getFileExtension(fileName);
         DocumentFactory factory = FACTORIES.get(fileExtension);
         if (factory == null) {
             throw new IllegalArgumentException(UNSUPPORTED_FILE_EXTENSION + fileExtension);
@@ -44,7 +47,6 @@ public class DocumentFactoryManagerImpl implements DocumentFactoryManager {
         return factory;
     }
 
-    @Override
     public String getFileExtension(String fileName) {
         int dotIndex = fileName.lastIndexOf('.');
         if (dotIndex == -1) {

@@ -6,6 +6,7 @@ import com.example.documentindex.dto.response.DocumentResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ import static com.example.documentindex.util.Constants.FILE_EXIST;
 import static com.example.documentindex.util.Constants.DOCUMENTS;
 import static com.example.documentindex.util.ErrorMessage.*;
 
+@Component
 public class TextDocumentFactory implements DocumentFactory {
 
     private static final Logger logger =

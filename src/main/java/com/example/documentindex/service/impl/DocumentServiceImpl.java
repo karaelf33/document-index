@@ -7,6 +7,7 @@ import com.example.documentindex.dto.response.DocumentResponse;
 import com.example.documentindex.dto.response.SearchResponse;
 import com.example.documentindex.search.SearchService;
 import com.example.documentindex.service.DocumentService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,21 +15,17 @@ import java.util.List;
 
 
 @Service
+@RequiredArgsConstructor
 public class DocumentServiceImpl implements DocumentService {
 
     private final SearchService searchService;
     private final DocumentFactoryManager documentFactoryManager;
 
-    public DocumentServiceImpl(SearchService searchService, DocumentFactoryManager documentFactoryManager) {
-        this.searchService = searchService;
-        this.documentFactoryManager = documentFactoryManager;
-    }
-
     @Override
     public List<SearchResponse> searchQueryInDocuments(List<SearchRequest> searchRequestList) {
         List<SearchResponse> searchResponseList = new ArrayList<>();
 
-        for (SearchRequest searchRequest : searchRequestList) {
+        for (var searchRequest : searchRequestList) {
             String documentContent = documentFactoryManager.getContentFromDocument(searchRequest);
             double queryScoreInContent = searchService.getQueryMatchScoreInContent(searchRequest.query(), documentContent);
             var searchResponse = new SearchResponse(searchRequest.fileName(), queryScoreInContent);
@@ -41,7 +38,7 @@ public class DocumentServiceImpl implements DocumentService {
     public List<DocumentResponse> saveDocumentWithContent(List<DocumentRequest> documentRequests) {
         List<DocumentResponse> responseList = new ArrayList<>();
 
-        for (DocumentRequest documentRequest : documentRequests) {
+        for (var documentRequest : documentRequests) {
             DocumentResponse documentSaved = documentFactoryManager.saveDocumentWithContent(documentRequest);
             responseList.add(documentSaved);
         }

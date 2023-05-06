@@ -10,6 +10,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -23,6 +24,7 @@ import java.nio.file.Paths;
 import static com.example.documentindex.util.Constants.*;
 import static com.example.documentindex.util.ErrorMessage.*;
 
+@Component
 public class WordDocumentFactory implements DocumentFactory {
 
     private static final Logger logger =

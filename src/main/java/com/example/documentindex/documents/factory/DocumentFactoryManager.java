@@ -5,11 +5,10 @@ import com.example.documentindex.dto.request.SearchRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
 
 public interface DocumentFactoryManager {
+    String getContentFromDocument(SearchRequest searchRequest);
+
     DocumentResponse saveDocumentWithContent(DocumentRequest documentRequest);
 
     DocumentFactory getDocumentFactory(String documentRequest);
 
-    String getFileExtension(String fileName);
-
-    String documentContent(SearchRequest searchRequest);
 }
