@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -29,13 +28,17 @@ class DocumentControllerTest {
 
     private static final String QUERY_1 = "query1";
     private static final String QUERY_2 = "query2";
-    private static final String QUERY_3= "query3";
-    private static final String documentContent = "documentContent";
-    private static final String file1 = "file1";
-    private static final String file2 = "file2";
-    private static final String content1 = "content1";
-    private static final String content2 = "content2";
-    private static final String content3 = "content3";
+    private static final String QUERY_3 = "query3";
+    private static final String FILE_NAME_1 = "file1";
+    private static final String FILE_NAME_2 = "file2";
+    private static final String FILE_NAME_3 = "file3";
+    private static final String CONTENT_MESSAGE_1 = "CONTENT_MESSAGE_1";
+    private static final String CONTENT_MESSAGE_2 = "CONTENT_MESSAGE_2";
+    private static final String CONTENT_MESSAGE_3 = "CONTENT_MESSAGE_3";
+
+    private static final String FILE_MESSAGE_1 = "file message 1";
+    private static final String FILE_MESSAGE_2 = "file message 2";
+    private static final String FILE_MESSAGE_3 = "file message 3";
 
     @Mock
     DocumentService documentService;
@@ -57,14 +60,14 @@ class DocumentControllerTest {
 
         //given
         var searchRequestList = Arrays.asList(
-                new SearchRequest(QUERY_1, "text1.txt"),
-                new SearchRequest(QUERY_2, "text2.txt"),
-                new SearchRequest(QUERY_3, "text3.txt"));
+                new SearchRequest(QUERY_1, FILE_NAME_1),
+                new SearchRequest(QUERY_2, FILE_NAME_2),
+                new SearchRequest(QUERY_3, FILE_NAME_3));
 
         var expectedSearchResponseList = Arrays.asList(
-                new SearchResponse("text1.txt", 50.00),
-                new SearchResponse("text2.txt", 100.00),
-                new SearchResponse("text3.txt", 75.00));
+                new SearchResponse(FILE_NAME_1, 50.00),
+                new SearchResponse(FILE_NAME_2, 100.00),
+                new SearchResponse(FILE_NAME_3, 75.00));
 
 
         // when
@@ -85,15 +88,16 @@ class DocumentControllerTest {
 
         //given
         var documentRequests = Arrays.asList(
-                new DocumentRequest(QUERY_1, content1),
-                new DocumentRequest(QUERY_2, content2),
-                new DocumentRequest(QUERY_3, content3)
+                new DocumentRequest(FILE_NAME_1, CONTENT_MESSAGE_1),
+                new DocumentRequest(FILE_NAME_2, CONTENT_MESSAGE_2),
+                new DocumentRequest(FILE_NAME_3, CONTENT_MESSAGE_3)
         );
 
+
         var expectedDocumentResponseList = Arrays.asList(
-                new DocumentResponse("file message 1", "content message 3"),
-                new DocumentResponse("file message 2", "content message 2"),
-                new DocumentResponse("file message 3", "content message 1")
+                new DocumentResponse(FILE_MESSAGE_1, CONTENT_MESSAGE_1),
+                new DocumentResponse(FILE_MESSAGE_2, CONTENT_MESSAGE_2),
+                new DocumentResponse(FILE_MESSAGE_3, CONTENT_MESSAGE_3)
         );
 
 
@@ -104,7 +108,7 @@ class DocumentControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/documents")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(documentRequests)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(content().json(objectMapper.writeValueAsString(expectedDocumentResponseList)));
 
         verify(documentService, times(1)).saveDocumentWithContent(documentRequests);
