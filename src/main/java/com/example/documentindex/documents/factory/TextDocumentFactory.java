@@ -3,8 +3,7 @@ package com.example.documentindex.documents.factory;
 
 import com.example.documentindex.dto.request.DocumentRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
@@ -26,11 +25,10 @@ import static com.example.documentindex.util.Constants.FILE_EXIST;
 import static com.example.documentindex.util.Constants.DOCUMENTS;
 import static com.example.documentindex.util.ErrorMessage.*;
 
+@Slf4j
 @Component
 public class TextDocumentFactory implements DocumentFactory {
-
-    private static final Logger logger =
-            LogManager.getLogger(WordDocumentFactory.class);
+    
 
     @Override
     public DocumentResponse saveDocumentWithContent(DocumentRequest documentRequest) {
@@ -51,23 +49,24 @@ public class TextDocumentFactory implements DocumentFactory {
                     StandardOpenOption.CREATE, StandardOpenOption.APPEND);
 
             contentMessage = CONTENT_ADDED;
-            logger.info(fileMessage, contentMessage);
+            log.info(fileMessage, contentMessage);
         } catch (IOException e) {
             fileMessage = FILE_ERROR_CREATION + fileName;
             contentMessage = CONTENT_ADDITION_ERROR;
-            logger.error(fileMessage, contentMessage, e.getMessage());
+            log.error(fileMessage, contentMessage, e.getMessage());
         }
         return new DocumentResponse(fileMessage, contentMessage);
     }
 
     @Override
     public String readFile(String filename) {
-        ClassPathResource resource = new ClassPathResource(DOCUMENTS+ filename);
+        ClassPathResource resource = new ClassPathResource(DOCUMENTS + filename);
         try (InputStream inputStream = resource.getInputStream()) {
-                byte[] bytes = FileCopyUtils.copyToByteArray(inputStream);
-                return new String(bytes, StandardCharsets.UTF_8);
+            byte[] bytes = FileCopyUtils.copyToByteArray(inputStream);
+            log.info("File read: {}", filename);
+            return new String(bytes, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            logger.error(ERROR_READING_FILE + filename + FILE_EXTENSION_SEPARATOR + e.getMessage());
+            log.error(ERROR_READING_FILE + filename + FILE_EXTENSION_SEPARATOR + e.getMessage());
             return null;
         }
     }

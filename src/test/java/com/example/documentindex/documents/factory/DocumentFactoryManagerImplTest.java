@@ -75,7 +75,7 @@ class DocumentFactoryManagerImplTest {
     public void shouldReturnException_when_In_saveDocumentWithContent_FactoryNotValid() {
         DocumentFactory textDocumentFactory = Mockito.mock(TextDocumentFactory.class);
         DocumentFactory wordtDocumentFactory = Mockito.mock(WordDocumentFactory.class);
-        DocumentRequest documentRequest = new DocumentRequest("test.KKK", "Test content");
+        var documentRequest = new DocumentRequest("test.KKK", "Test content");
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> documentFactoryManager.saveDocumentWithContent(documentRequest));
         Assertions.assertThrows(IllegalArgumentException.class, () -> documentFactoryManager.saveDocumentWithContent(documentRequest));

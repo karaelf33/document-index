@@ -2,8 +2,7 @@ package com.example.documentindex.documents.factory;
 
 import com.example.documentindex.dto.request.DocumentRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -23,13 +22,10 @@ import java.nio.file.Paths;
 
 import static com.example.documentindex.util.Constants.*;
 import static com.example.documentindex.util.ErrorMessage.*;
-
+@Slf4j
 @Component
 public class WordDocumentFactory implements DocumentFactory {
-
-    private static final Logger logger =
-            LogManager.getLogger(WordDocumentFactory.class);
-
+    
     @Override
     public DocumentResponse saveDocumentWithContent(DocumentRequest documentRequest) {
         String fileMessage;
@@ -60,11 +56,11 @@ public class WordDocumentFactory implements DocumentFactory {
             doc.close();
 
             contentMessage = CONTENT_ADDED;
-            logger.info(fileMessage, contentMessage);
+            log.info(fileMessage, contentMessage);
         } catch (IOException e) {
             fileMessage = FILE_ERROR_CREATION + fileName;
             contentMessage = CONTENT_ADDITION_ERROR;
-            logger.error(fileMessage, contentMessage, e.getMessage());
+            log.error(fileMessage, contentMessage, e.getMessage());
         }
         return new DocumentResponse(fileMessage, contentMessage);
     }
@@ -76,10 +72,10 @@ public class WordDocumentFactory implements DocumentFactory {
 
             XWPFDocument document = new XWPFDocument(inputStream);
             XWPFWordExtractor extractor = new XWPFWordExtractor(document);
-            logger.info(FILE_READ, "{}", filename);
+            log.info("File read: {}", filename);
             return extractor.getText();
         } catch (IOException e) {
-            logger.error(ERROR_READING_FILE + filename + FILE_EXTENSION_SEPARATOR + e.getMessage());
+            log.error(ERROR_READING_FILE + filename + FILE_EXTENSION_SEPARATOR + e.getMessage());
             return null;
         }
     }
