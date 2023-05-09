@@ -32,17 +32,17 @@ class TextDocumentFactoryTest {
     TextDocumentFactory textDocumentFactory;
 
     @BeforeEach
-    public void beforeEach() {
+    void beforeEach() {
         mocks = Mockito.mockStatic(Files.class);
     }
 
     @AfterEach
-    public void afterEach() throws Exception {
+    void afterEach() throws Exception {
         mocks.close();
     }
 
     @Test
-    public void should_return_documentResponse_when_call_saveDocumentWithContent_success_and_fileExist() {
+    void should_return_documentResponse_when_call_saveDocumentWithContent_success_and_fileExist() {
         // given
         var documentRequest = new DocumentRequest(FILENAME, FILE_CONTENT);
         var expectedDocumentResponse = new DocumentResponse(FILE_EXIST, CONTENT_ADDED);
@@ -55,7 +55,7 @@ class TextDocumentFactoryTest {
     }
 
     @Test
-    public void should_return_documentResponse_when_call_saveDocumentWithContent_success_and_fileDoesNotExist() {
+    void should_return_documentResponse_when_call_saveDocumentWithContent_success_and_fileDoesNotExist() {
 
         var documentRequest = new DocumentRequest(FILENAME, FILE_CONTENT);
         var expectedDocumentResponse = new DocumentResponse(FILENAME + FILE_CREATED, CONTENT_ADDED);
@@ -67,7 +67,7 @@ class TextDocumentFactoryTest {
     }
 
     @Test
-    public void should_return_error_message_when_file_creation_fails() throws IOException {
+     void should_return_error_message_when_file_creation_fails() throws IOException {
         var documentRequest = new DocumentRequest(FILENAME, FILE_CONTENT);
         var expectedDocumentResponse = new DocumentResponse(FILE_ERROR_CREATION + FILENAME, CONTENT_ADDITION_ERROR);
 

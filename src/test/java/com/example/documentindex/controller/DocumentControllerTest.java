@@ -84,7 +84,7 @@ class DocumentControllerTest {
     }
 
     @Test
-    public void when_saveDocumentWithContent_then_should_return_documentResponseList() throws Exception {
+    void when_saveDocumentWithContent_then_should_return_documentResponseList() throws Exception {
 
         //given
         var documentRequests = Arrays.asList(

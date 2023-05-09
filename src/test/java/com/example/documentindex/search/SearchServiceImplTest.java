@@ -20,12 +20,12 @@ class SearchServiceImplTest {
     private SearchServiceImpl searchService;
 
     @BeforeEach
-    public void beforeEach(){
+    void beforeEach(){
         searchService=new SearchServiceImpl();
     }
 
     // WARNING: content can't be shorter then query
-    public static Stream<Arguments> query_requests() {
+    static Stream<Arguments> query_requests() {
         return Stream.of(
                 Arguments.of("abc adb","xxx abc adb yyy",100.00),
                 Arguments.of("xx yy zz xx yy tt","aa bb cc dd xx yy zz xx yy zz xx yy tt",100.0),
@@ -53,7 +53,7 @@ class SearchServiceImplTest {
 
     @ParameterizedTest
     @MethodSource("query_requests")
-    public void it_should_return_correct_match_score(String query,String content,double expectedMatchScore){
+    void it_should_return_correct_match_score(String query,String content,double expectedMatchScore){
 
         // when
         double queryMatchScoreInContent = searchService.getQueryMatchScoreInContent(query, content);

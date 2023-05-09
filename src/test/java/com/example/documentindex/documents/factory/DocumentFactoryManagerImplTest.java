@@ -26,19 +26,19 @@ class DocumentFactoryManagerImplTest {
     @Spy
     DocumentFactoryManagerImpl documentFactoryManager;
 
-    public static Stream<Arguments> documentFactory_implementations() {
+    static Stream<Arguments> documentFactory_implementations() {
         return Stream.of(Arguments.of("fileName.txt", "content", mock(TextDocumentFactory.class)),
                 Arguments.of("fileName.docx", "content", mock(WordDocumentFactory.class)));
     }
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
 
     }
 
     @ParameterizedTest
     @MethodSource("documentFactory_implementations")
-    public void getContentFromDocument_should_return_fileContent_when_FileExist(String fileName,
+    void getContentFromDocument_should_return_fileContent_when_FileExist(String fileName,
                                                                                 String content,
                                                                                 DocumentFactory documentFactory) {
         var searchRequest = new SearchRequest("query", fileName);
@@ -53,7 +53,7 @@ class DocumentFactoryManagerImplTest {
 
     @ParameterizedTest
     @MethodSource("documentFactory_implementations")
-    public void saveDocumentWithContent_when_RelatedFactoryExist(String fileName,
+    void saveDocumentWithContent_when_RelatedFactoryExist(String fileName,
                                                                  String testContent,
                                                                  DocumentFactory factory) {
         var documentRequest = new DocumentRequest(fileName, testContent);
@@ -72,7 +72,7 @@ class DocumentFactoryManagerImplTest {
     }
 
     @Test
-    public void shouldReturnException_when_In_saveDocumentWithContent_FactoryNotValid() {
+    void shouldReturnException_when_In_saveDocumentWithContent_FactoryNotValid() {
         DocumentFactory textDocumentFactory = Mockito.mock(TextDocumentFactory.class);
         DocumentFactory wordtDocumentFactory = Mockito.mock(WordDocumentFactory.class);
         var documentRequest = new DocumentRequest("test.KKK", "Test content");
@@ -85,7 +85,7 @@ class DocumentFactoryManagerImplTest {
     }
 
     @Test
-    public void getDocumentFactory_when_SupportedFileExtension() {
+    void getDocumentFactory_when_SupportedFileExtension() {
         DocumentFactory factory = documentFactoryManager.getDocumentFactory("SupportedFileExtensionName.txt");
         Assertions.assertTrue(factory instanceof TextDocumentFactory);
 
@@ -94,17 +94,17 @@ class DocumentFactoryManagerImplTest {
     }
 
     @Test
-    public void getDocumentFactor_when_UnsupportedFileExtension() {
+    void getDocumentFactor_when_UnsupportedFileExtension() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> documentFactoryManager.getDocumentFactory("UNSupportedFileExtensionName.kkk"));
     }
 
     @Test
-    public void getDocumentFactory_when_NoFileExtension() {
+     void getDocumentFactory_when_NoFileExtension() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> documentFactoryManager.getDocumentFactory("NOFileExtensionName"));
     }
 
     @Test
-    public void getFileExtension_when_FileName_valid() {
+    void getFileExtension_when_FileName_valid() {
         String validFileName = "filename_with_extension.txt";
         String expected = "txt";
 
@@ -114,7 +114,7 @@ class DocumentFactoryManagerImplTest {
     }
 
     @Test
-    public void getFileExtension_When_FileName_Invalid() {
+    void getFileExtension_When_FileName_Invalid() {
         String invalidFileName = "filename_without_extension";
         Assertions.assertThrows(IllegalArgumentException.class, () -> documentFactoryManager.getFileExtension(invalidFileName));
     }

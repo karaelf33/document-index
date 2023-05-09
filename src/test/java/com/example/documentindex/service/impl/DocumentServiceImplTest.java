@@ -39,7 +39,7 @@ class DocumentServiceImplTest {
 
 
     @Test
-    public void when_searchQueryInDocument_should_return_responseList() {
+    void when_searchQueryInDocument_should_return_responseList() {
 
         var searchRequestList = Arrays.asList(
                 new SearchRequest(QUERY_1, file1),
@@ -63,7 +63,7 @@ class DocumentServiceImplTest {
     }
 
     @Test
-    public void when_saveDocumentWithContent_should_return_documentRequests() {
+    void when_saveDocumentWithContent_should_return_documentRequests() {
         var documentRequests = Arrays.asList(
                 new DocumentRequest(file1, content1),
                 new DocumentRequest(file2, content2)

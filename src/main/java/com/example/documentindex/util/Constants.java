@@ -11,5 +11,7 @@ public class Constants {
    public static final String DOCUMENTS  = "documents/";
    public static final String FILE_EXTENSION_SEPARATOR = "-";
 
+   private Constants() {
+   }
 }
 

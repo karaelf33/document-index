@@ -7,4 +7,6 @@ public class ErrorMessage {
     public static final String INVALID_FILE_NAME = "Invalid file name: ";
     public static final String ERROR_READING_FILE = "Error reading file: ";
 
+    private ErrorMessage() {
+    }
 }
