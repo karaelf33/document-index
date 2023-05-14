@@ -3,6 +3,8 @@ package com.example.documentindex.documents.factory;
 import com.example.documentindex.dto.request.DocumentRequest;
 import com.example.documentindex.dto.request.SearchRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
+import com.example.documentindex.exception.MissingFileExtensionException;
+import com.example.documentindex.exception.UnsupportedFileExtensionException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,8 +79,8 @@ class DocumentFactoryManagerImplTest {
         DocumentFactory wordtDocumentFactory = Mockito.mock(WordDocumentFactory.class);
         var documentRequest = new DocumentRequest("test.KKK", "Test content");
 
-        Assertions.assertThrows(IllegalArgumentException.class, () -> documentFactoryManager.saveDocumentWithContent(documentRequest));
-        Assertions.assertThrows(IllegalArgumentException.class, () -> documentFactoryManager.saveDocumentWithContent(documentRequest));
+        Assertions.assertThrows(UnsupportedFileExtensionException.class, () -> documentFactoryManager.saveDocumentWithContent(documentRequest));
+        Assertions.assertThrows(UnsupportedFileExtensionException.class, () -> documentFactoryManager.saveDocumentWithContent(documentRequest));
 
         Mockito.verify(textDocumentFactory, Mockito.never()).saveDocumentWithContent(documentRequest);
         Mockito.verify(wordtDocumentFactory, Mockito.never()).saveDocumentWithContent(documentRequest);
@@ -95,12 +97,12 @@ class DocumentFactoryManagerImplTest {
 
     @Test
     void getDocumentFactor_when_UnsupportedFileExtension() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> documentFactoryManager.getDocumentFactory("UNSupportedFileExtensionName.kkk"));
+        Assertions.assertThrows(UnsupportedFileExtensionException.class, () -> documentFactoryManager.getDocumentFactory("UNSupportedFileExtensionName.kkk"));
     }
 
     @Test
      void getDocumentFactory_when_NoFileExtension() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> documentFactoryManager.getDocumentFactory("NOFileExtensionName"));
+        Assertions.assertThrows(MissingFileExtensionException.class, () -> documentFactoryManager.getDocumentFactory("NOFileExtensionName"));
     }
 
     @Test
@@ -116,6 +118,6 @@ class DocumentFactoryManagerImplTest {
     @Test
     void getFileExtension_When_FileName_Invalid() {
         String invalidFileName = "filename_without_extension";
-        Assertions.assertThrows(IllegalArgumentException.class, () -> documentFactoryManager.getFileExtension(invalidFileName));
+        Assertions.assertThrows(MissingFileExtensionException.class, () -> documentFactoryManager.getFileExtension(invalidFileName));
     }
 }

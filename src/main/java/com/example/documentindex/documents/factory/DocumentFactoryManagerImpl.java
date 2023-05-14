@@ -3,6 +3,8 @@ package com.example.documentindex.documents.factory;
 import com.example.documentindex.dto.request.DocumentRequest;
 import com.example.documentindex.dto.request.SearchRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
+import com.example.documentindex.exception.MissingFileExtensionException;
+import com.example.documentindex.exception.UnsupportedFileExtensionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +45,9 @@ public class DocumentFactoryManagerImpl implements DocumentFactoryManager {
         String fileExtension = getFileExtension(fileName);
         DocumentFactory factory = FACTORIES.get(fileExtension);
         if (factory == null) {
-            log.error("File not found : {}",fileName);
-            throw new IllegalArgumentException(UNSUPPORTED_FILE_EXTENSION + fileExtension);
+            log.error(UNSUPPORTED_FILE_EXTENSION + fileExtension);
+            throw new UnsupportedFileExtensionException(fileExtension);
+
         }
         log.info("Retrieving DocumentFactory for file extension: {}",fileExtension);
         return factory;
@@ -54,7 +57,7 @@ public class DocumentFactoryManagerImpl implements DocumentFactoryManager {
         int dotIndex = fileName.lastIndexOf('.');
         if (dotIndex == -1) {
             log.error("This file doesn't has file extension : {}",fileName);
-            throw new IllegalArgumentException(INVALID_FILE_NAME + fileName);
+            throw new MissingFileExtensionException(INVALID_FILE_NAME + fileName);
         }
         log.info("Extract file name from file extension {}",fileName);
         return fileName.substring(dotIndex + 1);
