@@ -3,7 +3,6 @@ package com.example.documentindex.documents.factory;
 import com.example.documentindex.dto.request.DocumentRequest;
 import com.example.documentindex.dto.request.SearchRequest;
 import com.example.documentindex.dto.response.DocumentResponse;
-import com.example.documentindex.exception.MissingFileExtensionException;
 import com.example.documentindex.exception.UnsupportedFileExtensionException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -102,22 +101,7 @@ class DocumentFactoryManagerImplTest {
 
     @Test
      void getDocumentFactory_when_NoFileExtension() {
-        Assertions.assertThrows(MissingFileExtensionException.class, () -> documentFactoryManager.getDocumentFactory("NOFileExtensionName"));
+        Assertions.assertThrows(UnsupportedFileExtensionException.class, () -> documentFactoryManager.getDocumentFactory("NOFileExtensionName"));
     }
 
-    @Test
-    void getFileExtension_when_FileName_valid() {
-        String validFileName = "filename_with_extension.txt";
-        String expected = "txt";
-
-        String actual = documentFactoryManager.getFileExtension(validFileName);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void getFileExtension_When_FileName_Invalid() {
-        String invalidFileName = "filename_without_extension";
-        Assertions.assertThrows(MissingFileExtensionException.class, () -> documentFactoryManager.getFileExtension(invalidFileName));
-    }
 }
