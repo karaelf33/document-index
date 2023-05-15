@@ -25,6 +25,18 @@ To build and run the Document-Index project, please follow these instructions:
 ### Task Effort
 I spent approximately  2 hours research, 3 hours coding
 
+### Search Document to match  Score Calculation
+
+
+ ### Example
+
+Query :<span style="color: green">I am going </span>  <span style="color: red">to school </span>
+
+Document Content: I am going home.I got so boring text text text
+
+Match Score: Qeury contains 5 words 3 words is match that's why score is <span style="color: yellow">%60</span>
+
+
 ## Caveats and Improvements 
 ### If I were to start again, I would consider the following improvements:
 
