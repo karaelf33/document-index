@@ -8,7 +8,10 @@ import java.util.Objects;
 public class SearchServiceImpl  implements SearchService{
 
     @Override
-    public double getQueryMatchScoreInContent(String query, String content) {
+    public double calculateQueryMatchScoreInContent(String query, String content) {
+        if (query.isEmpty() || content.isEmpty()){
+            return 0.00;
+        }
         String lowerCaseQuery = query.toLowerCase();
         String lowerCaseContent = content.toLowerCase();
         String[] queryWords = lowerCaseQuery.trim().split("\\s+"); // split the string by spaces and double spaces

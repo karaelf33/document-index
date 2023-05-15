@@ -76,7 +76,7 @@ public class WordDocumentFactory implements DocumentFactory {
             return extractor.getText();
         } catch (IOException e) {
             log.error(ERROR_READING_FILE + filename + FILE_EXTENSION_SEPARATOR + e.getMessage());
-            return null;
+            return ERROR_READING_FILE+ filename;
         }
     }
 

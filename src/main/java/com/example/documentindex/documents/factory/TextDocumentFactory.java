@@ -67,7 +67,7 @@ public class TextDocumentFactory implements DocumentFactory {
             return new String(bytes, StandardCharsets.UTF_8);
         } catch (IOException e) {
             log.error(ERROR_READING_FILE + filename + FILE_EXTENSION_SEPARATOR + e.getMessage());
-            return null;
+            return ERROR_READING_FILE+ filename;
         }
     }
 }

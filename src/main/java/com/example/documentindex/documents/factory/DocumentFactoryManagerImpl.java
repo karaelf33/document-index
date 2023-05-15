@@ -46,7 +46,6 @@ public class DocumentFactoryManagerImpl implements DocumentFactoryManager {
         if (factory == null) {
             log.error(UNSUPPORTED_FILE_EXTENSION + fileExtension);
             throw new UnsupportedFileExtensionException(fileExtension);
-
         }
         log.info("Retrieving DocumentFactory for file extension: {}",fileExtension);
         return factory;

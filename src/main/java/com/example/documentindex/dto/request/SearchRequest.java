@@ -1,5 +1,11 @@
 package com.example.documentindex.dto.request;
 
 
-public record SearchRequest(String query, String fileName) {
+import javax.validation.constraints.NotBlank;
+
+public record SearchRequest(
+        @NotBlank(message = "File name must be specified")
+        String query,
+        @NotBlank(message = "File name must be specified")
+        String fileName) {
 }

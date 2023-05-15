@@ -53,7 +53,7 @@ class DocumentServiceImplTest {
         //when
         when(documentFactoryManager.getContentFromDocument(any(SearchRequest.class)))
                 .thenReturn(documentContent);
-        when(searchService.getQueryMatchScoreInContent(anyString(), anyString()))
+        when(searchService.calculateQueryMatchScoreInContent(anyString(), anyString()))
                 .thenReturn(0.5)
                 .thenReturn(0.3);
         List<SearchResponse> actualSearchResponseList = documentService.searchQueryInDocuments(searchRequestList);

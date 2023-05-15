@@ -56,7 +56,7 @@ class SearchServiceImplTest {
     void it_should_return_correct_match_score(String query,String content,double expectedMatchScore){
 
         // when
-        double queryMatchScoreInContent = searchService.getQueryMatchScoreInContent(query, content);
+        double queryMatchScoreInContent = searchService.calculateQueryMatchScoreInContent(query, content);
         double differenceCanBe=0.99999999;
 
         //then
