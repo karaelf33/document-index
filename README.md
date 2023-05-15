@@ -32,7 +32,7 @@ If I were to start again, I would consider the following improvements:
 it throws custom exceptions and the flow stop of the application.
 Instead of completely stopping the flow while searching/saving files, 
 it would be more effective to log the errors and return meaningful status codes to the client and continue the flow for other files.
-For instance, in the method [getDocumentFactory()](\src\main\java\com\example\documentindex\documents\factory\DocumentFactoryManagerImpl.java#LXX) method.
+For instance, in the method [getDocumentFactory()](/src/main/java/com/example/documentindex/documents/factory/DocumentFactoryManagerImpl.java#LXX) method.
 
 
 //Butun caseler cover edilmedi (zaman kisitindan dolayi)`
