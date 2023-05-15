@@ -1,12 +1,41 @@
+# Document-Index
 
-//what can be better.
+Document-Index is a search application for indexing and retrieving documents efficiently. It provides a convenient way to search for documents based on a query and obtain relevant results quickly.
 
-throw exceptionlar akisi bozuyor eger bir data
-bozuk ise akis duruyor.
-Bunun yerine sadece log basip akisi durduran sebepleri 
-clinete anlamli status code olarak donmek daha iyi olurdu.example :getDocumentFactory()
 
-//Butun caseler cover edilmedi (zaman kisitindan dolayi)
+
+## Installation
+To build and run the Document-Index project, please follow these instructions:
+
+## Prerequisites
+#### Java 17:Ensure that you have Java Development Kit (JDK) 17 installed on your system.
+#### Maven: Make sure you have Apache Maven installed to handle project dependencies and build process.
+#### Steps
+1.)Clone the repository: git clone https://github.com/karaelf33/document-index.git 
+
+2.) Navigate to the project directory:cd Document-Index
+
+3.)Build the project using Maven: mvn clean install
+
+4.) Run the application: mvn spring-boot:run
+
+5.) Access the application: Open a web browser and go to http://localhost:8080 to access the Document-Index user interface.
+
+
+### Task Effort
+I spent approximately  2 hours research, 3 hours coding
+
+## Caveats and Improvements
+If I were to start again, I would consider the following improvements:
+
+1:)Currently, when an exception occurs during the processing of a faulty file,
+it throws custom exceptions and the flow stop of the application.
+Instead of completely stopping the flow while searching/saving files, 
+it would be more effective to log the errors and return meaningful status codes to the client and continue the flow for other files.
+For instance, in the method [getDocumentFactory()](document-index\src\main\java\com\example\documentindex\documents\factory/DocumentFactoryManagerImpl.java#LXX) method.
+
+
+//Butun caseler cover edilmedi (zaman kisitindan dolayi)`
 .Eger ekleseydim daha fazla if-else statement 
 eklenemek zorunda kalirdim.Butun case,leri en basta
 dusunup gereksiz if else statmentten kurtulmak icin ona gore daha 
