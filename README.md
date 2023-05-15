@@ -28,17 +28,17 @@ I spent approximately  2 hours research, 3 hours coding
 ## Caveats and Improvements 
 ### If I were to start again, I would consider the following improvements:
 
-1:)Currently, when an exception occurs during the processing of a faulty file,
+1:)Pay attention more for Flows: Currently, when an exception occurs during the processing of a faulty file,
 it throws custom exceptions and the flow stop of the application.
 Instead of completely stopping the flow while searching/saving files, 
-it would be more effective to log the errors and return meaningful status codes to the client and continue the flow for other files.
+it would be more effective to just log the errors and return meaningful status codes to the client and continue the flow for other files.
 For instance, in the method [getDocumentFactory()](/src/main/java/com/example/documentindex/documents/factory/DocumentFactoryManagerImpl.java#L47) method.
 
 2:) Test-Driven Development (TDD): Especially Applying Test-Driven Development to the
 [calculateQueryMatchScoreInContent()](/src/main/java/com/example/documentindex/search/SearchServiceImpl.java#L11)
 method could have significantly reduced development effort. Writing tests before implementing the code helps clarify requirements, 
 reduces debugging time, and ensures a more robust implementation. Consider adopting this approach for future development.
-
+If I were start again, I would follow the TDD especially for here.
 
 3:) Factory Design Pattern: It would have been beneficial to spend more time considering the Factory design pattern. 
 Returning a dynamic DocumentFactory is a good idea, but it posed challenges when writing tests.
