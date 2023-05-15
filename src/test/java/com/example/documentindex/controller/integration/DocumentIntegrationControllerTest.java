@@ -31,7 +31,7 @@ class DocumentIntegrationControllerTest {
 
 
     @Test
-    public void when_searchDocuments_successfully() throws Exception {
+    void when_searchDocuments_successfully() throws Exception {
         List<SearchRequest> searchRequestList = new ArrayList<>();
         searchRequestList.add(new SearchRequest("This is NOT_INCLUDE", "document1.txt"));
         searchRequestList.add(new SearchRequest("the content of document NOT_INCLUDE NOT_INCLUDE NOT_INCLUDE", "document2.txt"));
