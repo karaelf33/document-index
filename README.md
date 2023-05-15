@@ -60,3 +60,6 @@ I would spend more time refactoring the names to ensure clarity and better separ
 6:) Commit Practices: It would have been beneficial to make smaller commits and follow a standard commit message convention. 
 By making smaller commits, it becomes easier to track changes and understand the progression of the codebase. Additionally, adhering to a commit message standard provides clarity and context to each commit,
 making it easier for team members to understand the changes being made. If I was to start again I would pay attention more to that
+
+7:)Increased Test Coverage: Although the project has a decent test coverage, there is still room for improvement. If I had more time, I would aim to increase the test coverage further, particularly in critical areas and edge cases. Having comprehensive tests helps ensure the reliability and stability of the codebase, catching potential bugs and issues early on. It also provides confidence when making changes or refactoring existing code. In future iterations, 
+I would prioritize expanding the test suite to enhance the overall robustness of the application.
