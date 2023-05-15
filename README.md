@@ -25,8 +25,8 @@ To build and run the Document-Index project, please follow these instructions:
 ### Task Effort
 I spent approximately  2 hours research, 3 hours coding
 
-## Caveats and Improvements
-If I were to start again, I would consider the following improvements:
+## Caveats and Improvements 
+### If I were to start again, I would consider the following improvements:
 
 1:)Currently, when an exception occurs during the processing of a faulty file,
 it throws custom exceptions and the flow stop of the application.
