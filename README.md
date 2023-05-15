@@ -50,7 +50,7 @@ As Uncle Bob suggests, if testing going to be hard often indicates that there mi
 4:) Logging in [searchQueryInDocuments()](/src/main/java/com/example/documentindex/service/impl/DocumentServiceImpl.java#L26)and
 [saveDocumentWithContent()](/src/main/java/com/example/documentindex/service/impl/DocumentServiceImpl.java#L39) 
 Methods: It can be discussed whether to add logs to monitor these methods. 
-If monitoring is not crucial, I prefer not to include them, as it can significantly increase the log volume.
+If monitoring is not crucial, I prefer not to include them, as it can significantly increase the logs volume.
 
 5:)Naming Conventions: I made an effort to keep the naming as descriptive and simple as possible. 
 However, the naming of Document operations and Search operations seems to be nested, making it appear confusing. 
