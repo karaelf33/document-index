@@ -32,39 +32,31 @@ If I were to start again, I would consider the following improvements:
 it throws custom exceptions and the flow stop of the application.
 Instead of completely stopping the flow while searching/saving files, 
 it would be more effective to log the errors and return meaningful status codes to the client and continue the flow for other files.
-For instance, in the method [getDocumentFactory()](/src/main/java/com/example/documentindex/documents/factory/DocumentFactoryManagerImpl.java#L42) method.
+For instance, in the method [getDocumentFactory()](/src/main/java/com/example/documentindex/documents/factory/DocumentFactoryManagerImpl.java#L47) method.
+
+2:) Test-Driven Development (TDD): Especially Applying Test-Driven Development to the
+[calculateQueryMatchScoreInContent()](/src/main/java/com/example/documentindex/search/SearchServiceImpl.java#L11)
+method could have significantly reduced development effort. Writing tests before implementing the code helps clarify requirements, 
+reduces debugging time, and ensures a more robust implementation. Consider adopting this approach for future development.
 
 
-//Butun caseler cover edilmedi (zaman kisitindan dolayi)`
-.Eger ekleseydim daha fazla if-else statement 
-eklenemek zorunda kalirdim.Butun case,leri en basta
-dusunup gereksiz if else statmentten kurtulmak icin ona gore daha 
-iyi bir desing yapilarbilirdi.
---->file,query icin validtor desing edilebilir 
-//calculateQueryMatchScoreInContent() methodu icin TDD uygulamayak
-kodlarken ki efforu cok dusurudu.
-Clintten. istek atarak test etmek kod yazma suresini attirdi.
+3:) Factory Design Pattern: It would have been beneficial to spend more time considering the Factory design pattern. 
+Returning a dynamic DocumentFactory is a good idea, but it posed challenges when writing tests.
+If I were to start again, I would spend more time thinking and implementing the Factory design pattern.
+As Uncle Bob suggests, if testing going to be hard often indicates that there might be something wrong.
 
-// factory desing patternin uzerinde biraz daha fazla dusunmek 
-daha iyi olurdu.Dinamik bir documentFactory dondundermek mantkli
-fakat test yazarken bir hayli zor.
-Cunku test codelari yazarken zorlandim.
-Bir seylerin yanlis gittige dair en buyuk isaret(Uncle bob)
+4:)Util Package: The util package has started to become a bit bothersome. It could be worth considering removing it to clutter the codebase.
 
-// util package gozumu rahatsiz etmeye basladi.
-Silinmesi icin uzerinde dusurebilir
+4:) Logging in [searchQueryInDocuments()](/src/main/java/com/example/documentindex/service/impl/DocumentServiceImpl.java#L26)and
+[saveDocumentWithContent()](/src/main/java/com/example/documentindex/service/impl/DocumentServiceImpl.java#L39) 
+Methods: It can be discussed whether to add logs to monitor these methods. 
+If monitoring is not crucial, I prefer not to include them, as it can significantly increase the log volume.
 
-//searchQueryInDocuments,saveDocumentWithContent
-methodlarina log koymak uzerine tartisalabilir 
-munlari monitor etmek onemini icin.
-Eger montirin yapilmasi icin cok onemli degilse 
-koyulmamasini tercih ederim.
-Koyuldugu takdirde log hacmi cok artabilir. 
+5:)Naming Conventions: I made an effort to keep the naming as descriptive and simple as possible. 
+However, the naming of Document operations and Search operations seems to be nested, making it appear confusing. 
+If I were to start again, I would pay more attention to the naming and separation of responsibilities in these services. 
+I would spend more time refactoring the names to ensure clarity and better separate the responsibilities.
 
-// isimlendirmeler olabildiginde aciklayici ve basit
-olmasina ozen gosterdim.Fakat refactor edildiginde
-daha iyi isimlendirmeler her zaman bulunabilir.
-
-// daha kucuk commitler atilabilir ve commit mesajlarinin
-standarti olabilirdi.
-//
+6:) Commit Practices: It would have been beneficial to make smaller commits and follow a standard commit message convention. 
+By making smaller commits, it becomes easier to track changes and understand the progression of the codebase. Additionally, adhering to a commit message standard provides clarity and context to each commit,
+making it easier for team members to understand the changes being made. If I was to start again I would pay attention more to that
