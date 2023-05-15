@@ -76,7 +76,7 @@ class DocumentFactoryManagerImplTest {
     void shouldReturnException_when_In_saveDocumentWithContent_FactoryNotValid() {
         DocumentFactory textDocumentFactory = Mockito.mock(TextDocumentFactory.class);
         DocumentFactory wordtDocumentFactory = Mockito.mock(WordDocumentFactory.class);
-        var documentRequest = new DocumentRequest("test.KKK", "Test content");
+        var documentRequest = new DocumentRequest("test.unknown", "Test content");
 
         Assertions.assertThrows(UnsupportedFileExtensionException.class, () -> documentFactoryManager.saveDocumentWithContent(documentRequest));
         Assertions.assertThrows(UnsupportedFileExtensionException.class, () -> documentFactoryManager.saveDocumentWithContent(documentRequest));
@@ -96,7 +96,7 @@ class DocumentFactoryManagerImplTest {
 
     @Test
     void getDocumentFactor_when_UnsupportedFileExtension() {
-        Assertions.assertThrows(UnsupportedFileExtensionException.class, () -> documentFactoryManager.getDocumentFactory("UNSupportedFileExtensionName.kkk"));
+        Assertions.assertThrows(UnsupportedFileExtensionException.class, () -> documentFactoryManager.getDocumentFactory("UNSupportedFileExtensionName.unknown"));
     }
 
     @Test
